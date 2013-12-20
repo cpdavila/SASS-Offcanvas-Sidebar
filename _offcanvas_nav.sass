@@ -1,0 +1,63 @@
+// Offcanvas Nav written for use in Twitter bootstrap.
+//
+// @author: Spike Frye
+// @date: 12/20/2013
+// @version: 1.0
+//
+// The mark up should be something like the following
+// 
+// <body>
+// <div class="offcanvas-sidebar-container">
+//      <div class="">
+//          <!-- Sidebar navigation -->
+//      </div>
+//
+//      <div class="offcanvas-sidebar-sibling">
+//          <!-- Main page content here -->
+//      </div>
+// </body>
+
+html,
+body
+    height: 100%
+    width: 100%
+
+@media screen and (max-width: $screen-sm-max)
+    // Main page content that sits next to the side nav
+    .offcanvas-sidebar-sibling
+        background-color: #FFF
+        position: relative
+        right: 0
+        width: 100%
+        transition: left .3s
+    // Wrapper around the offcanvas navigation
+    .offcanvas-sidebar-container
+        position: absolute
+        width: 100%
+        height: 100%
+        top: 0
+        left: 0
+        overflow: hidden
+    // The off canvas navigation
+    .offcanvas-sidebar-right
+        position: absolute
+        top: 0
+        right: -256px
+        width: 256px
+        height: 100%
+
+        overflow: auto
+        transition: right .3s
+        .navbar-nav
+            margin-right: 0
+            margin-left: 0
+
+    // It's best to attach this class to the body to reveal
+    // the off canvas nav
+    .offcanvas-is-active
+        .offcanvas-container
+            height: 100%
+            overflow: hidden
+            left: -256px
+        .offcanvas-sidebar-right
+            right: 0
