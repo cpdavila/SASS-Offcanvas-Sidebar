@@ -7,9 +7,10 @@
 // The mark up should be something like the following
 // 
 // <body>
-// <div class="offcanvas-sidebar-container">
-//      <div class="">
-//          <!-- Sidebar navigation -->
+//      <div class="offcanvas-sidebar-container">
+//          <div class="">
+//              <!-- Sidebar navigation -->
+//          </div>
 //      </div>
 //
 //      <div class="offcanvas-sidebar-sibling">
@@ -20,16 +21,22 @@
 html,
 body
     height: 100%
-    width: 100%
+
+// Full screen toggle that becomes clickable upon the
+// sidenav sliding in. This should be a 
+.offcanvas-sidebar-toggle
+    display: none
 
 @media screen and (max-width: $screen-sm-max)
     // Main page content that sits next to the side nav
     .offcanvas-sidebar-sibling
-        background-color: #FFF
+        +backface-visibility(hidden)
         position: relative
-        right: 0
         width: 100%
-        transition: left .3s
+        +perspective(1000)
+        +transition-property(transform)
+        +transition-duration(0.3s)
+        +transition-timing-function(ease-in-out)
     // Wrapper around the offcanvas navigation
     .offcanvas-sidebar-container
         position: absolute
@@ -38,26 +45,40 @@ body
         top: 0
         left: 0
         overflow: hidden
+        +backface-visibility(hidden)
     // The off canvas navigation
     .offcanvas-sidebar-right
         position: absolute
-        top: 0
         right: -256px
         width: 256px
         height: 100%
 
+        +backface-visibility(hidden)
         overflow: auto
-        transition: right .3s
+        +perspective(1000)
+        +transition-property(transform)
+        +transition-duration(0.3s)
+        +transition-timing-function(ease-in-out)
         .navbar-nav
-            margin-right: 0
-            margin-left: 0
+            margin: 0
 
-    // It's best to attach this class to the body to reveal
+    // It's best to attach this class to the html tag to reveal
     // the off canvas nav
-    .offcanvas-is-active
-        .offcanvas-container
+    html.offcanvas-is-active
+        overflow: hidden
+        body
+            overflow: hidden
+        .offcanvas-sidebar-toggle
+            display: block
+            position: absolute
+            top: 0
+            left: 0
+            width: 100%
+            height: 100%
+            z-index: 100
+        .offcanvas-sidebar-sibling
             height: 100%
             overflow: hidden
-            left: -256px
+            +transform(translateX(-256px))
         .offcanvas-sidebar-right
-            right: 0
+            +transform(translateX(-256px))
